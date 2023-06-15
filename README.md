@@ -30,6 +30,26 @@ Supported versions
 | gear@0.1.2   |             |
 | gear@0.1.1   |             |
 
+## Commands
+
+<kbd>gi</kbd>
+
+```
+brew tap gear-tech/gear
+brew gi
+
+Usage: brew gi [--tag=] [--to=]
+
+gear binaries installer.
+
+      --tag                        Install a specific version of gear.
+      --to                         Install gear to a specific path.
+  -d, --debug                      Display any debugging information.
+  -q, --quiet                      Make some output more quiet.
+  -v, --verbose                    Make some output more verbose.
+  -h, --help                       Show this message.
+```
+
 ## LICENSE
 
 GPL-3.0-or-later
