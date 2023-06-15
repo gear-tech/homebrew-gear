@@ -1,12 +1,9 @@
-# typed: true
 # frozen_string_literal: true
 
 require "cli/parser"
 
 module Homebrew
-  module_function
-
-  def gi_args
+  def self.gi_args
     Homebrew::CLI::Parser.new do
       description <<~EOS
         gear binaries installer.
@@ -17,27 +14,16 @@ module Homebrew
 
       flag "--to=",
            description: "Install gear to a specific path."
-
     end
   end
 
-  def gi
+  def self.gi
     args = gi_args.parse
 
-    installer = "gear-installer"
-    installer_link = "#{libexec}/#{installer}"
-
-    if !File.exist?("#{installer_link}")
-        system "curl" "https://get.gear.rs/install.sh" ">" "#{installer}.sh"
-        system "chmod" "+x" "#{installer}.sh"
-
-        libexec.install Dir["*"]
-        bin.install_symlink Dir["#{libexec}/#{installer}"]
-    end
-
-    cmd = "#{installer_link}"
-    cmd += " --tag=#{args.tag}" if args.tag
-    cmd += " --to=#{args.to}" if args.to
+    # TODO: cache install.sh (issue #1)
+    cmd = "curl https://get.gear.rs/install.sh | sh -s -- "
+    cmd += "--tag=#{args.tag}" if args.tag
+    cmd += "--to=#{args.to}" if args.to
 
     system cmd
   end
