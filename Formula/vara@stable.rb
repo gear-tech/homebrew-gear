@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-class VaraATLatest < Formula
+class VaraATStable < Formula
   desc "Computational Component of Polkadot Network"
   homepage "https://github.com/gear-tech/gear"
   license "GPL-3.0-or-later"
