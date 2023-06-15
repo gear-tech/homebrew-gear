@@ -32,18 +32,32 @@ Supported versions
 
 ## Commands
 
-<kbd>gi</kbd>
+## glinks
 
 ```
 brew tap gear-tech/gear
-brew gi
 
-Usage: brew gi [--tag=] [--to=]
+# Show all linked websites
+$ brew glinks
+website:    https://gear-tech.io
+github:     https://github.com/gear-tech/gear
+discord:    https://discord.gg/gear-protocol
+wiki:       https://wiki.gear-tech.io
+rustdocs:   https://docs.gear.rs
 
-gear binaries installer.
 
-      --tag                        Install a specific version of gear.
-      --to                         Install gear to a specific path.
+# Usages
+$ brew glinks -h
+
+Usage: brew glinks [options]
+
+Gear linked websites.
+
+  -w, --website                    Open gear official website.
+  -g, --github                     Open gear github.
+      --discord                    Open gear discord.
+      --wiki                       Open gear wiki.
+      --docs, --rustdocs           Open gear rust docs.
   -d, --debug                      Display any debugging information.
   -q, --quiet                      Make some output more quiet.
   -v, --verbose                    Make some output more verbose.
