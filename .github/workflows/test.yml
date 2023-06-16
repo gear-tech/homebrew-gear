@@ -1,0 +1,73 @@
+name: Test
+
+on:
+  pull_request: # TODO: Remove after debugging
+    branches: [master]
+  push:
+    branches: [master]
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  test:
+    name: Test formulae
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            unimplemented: true # TODO: Remove after adding support for Linux
+
+          - os: macOS-latest
+            unimplemented: false # TODO: Remove after adding support for Linux
+
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.unimplemented }} # TODO: Remove after adding support for Linux
+
+    steps:
+      - name: Install brew on Linux
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get install -y build-essential procps curl file git
+
+      - name: Add Gear tap from PR's branch
+        if: github.event_name == 'pull_request'
+        run: brew tap https://github.com/gear-tech/homebrew-gear
+
+      - name: Add Gear tap from master
+        if: github.event_name == 'push'
+        run: brew tap gear-tech/gear
+
+      - name: Test Gear formulae
+        run: |
+          brew install gear
+          gear --version && [ "$(gear --version)" = "gear 0.1.6-92ca3911de2" ]
+          brew install gear@0.1.6
+          gear --version && [ "$(gear --version)" = "gear 0.1.6-92ca3911de2" ]
+          brew install gear@0.1.5
+          gear --version && [ "$(gear --version)" = "gear 0.1.6-92ca3911de2" ]
+          brew install gear@0.1.4
+          gear --version && [ "$(gear --version)" = "gear 0.1.6-92ca3911de2" ]
+          brew install gear@0.1.3
+          gear --version && [ "$(gear --version)" = "gear 0.1.6-92ca3911de2" ]
+          brew install gear@0.1.2
+          gear --version && [ "$(gear --version)" = "gear 0.1.6-92ca3911de2" ]
+          brew install gear@0.1.1
+          gear --version && [ "$(gear --version)" = "gear 0.1.6-92ca3911de2" ]
+
+      - name: Test Vara formulae
+        run: |
+          brew install vara
+          gear --version && [ "$(gear --version)" = "gear 0.1.6-92ca3911de2" ]
+          brew install vara@1.1
+          gear --version && [ "$(gear --version)" = "gear 0.1.6-92ca3911de2" ]
+          brew install vara@1.0
+          gear --version && [ "$(gear --version)" = "gear 0.1.6-92ca3911de2" ]
+          brew install gear@0.1.4
+          gear --version && [ "$(gear --version)" = "gear 0.1.6-92ca3911de2" ]
+          brew install gear@0.1.3
+          gear --version && [ "$(gear --version)" = "gear 0.1.6-92ca3911de2" ]
+          brew install gear@0.1.2
+          gear --version && [ "$(gear --version)" = "gear 0.1.6-92ca3911de2" ]
+          brew install gear@0.1.1
+          gear --version && [ "$(gear --version)" = "gear 0.1.6-92ca3911de2" ]
