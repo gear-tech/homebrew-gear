@@ -22,8 +22,8 @@ jobs:
           - os: ubuntu-latest
             unimplemented: true # TODO: Remove after adding support for Linux
 
-          - os: macOS-latest
-            unimplemented: false # TODO: Remove after adding support for Linux
+          # - os: macOS-latest
+          #   unimplemented: false # TODO: Remove after adding support for Linux
 
     runs-on: ${{ matrix.os }}
     continue-on-error: ${{ matrix.unimplemented }} # TODO: Remove after adding support for Linux
@@ -34,6 +34,9 @@ jobs:
         run: |
           curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
           echo "/home/linuxbrew/.linuxbrew/bin" >> $GITHUB_PATH
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> $HOME/.bash_profile
+          (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> $HOME/.profile
           brew install hello
 
       # TODO: Find a solution to add a tap from a PR's branch
@@ -43,7 +46,9 @@ jobs:
 
       - name: Add Gear tap from master
         if: true # github.event_name == 'push'
-        run: brew tap gear-tech/gear
+        run: |
+          echo $PATH
+          brew tap gear-tech/gear
 
       - name: Test Gear formulae
         run: |
