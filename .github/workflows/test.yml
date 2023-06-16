@@ -22,8 +22,8 @@ jobs:
           - os: ubuntu-latest
             unimplemented: true # TODO: Remove after adding support for Linux
 
-          # - os: macOS-latest
-          #   unimplemented: false # TODO: Remove after adding support for Linux
+          - os: macOS-latest
+            unimplemented: false # TODO: Remove after adding support for Linux
 
     runs-on: ${{ matrix.os }}
     continue-on-error: ${{ matrix.unimplemented }} # TODO: Remove after adding support for Linux
@@ -47,7 +47,6 @@ jobs:
       - name: Add Gear tap from master
         if: true # github.event_name == 'push'
         run: |
-          echo $PATH
           brew tap gear-tech/gear
 
       - name: Test Gear formulae
