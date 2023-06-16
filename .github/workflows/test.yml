@@ -21,9 +21,57 @@ jobs:
         include:
           - os: ubuntu-latest
             unimplemented: true # TODO: Remove after adding support for Linux
+            formula: gear
 
           - os: macOS-latest
             unimplemented: false # TODO: Remove after adding support for Linux
+            formula: gear
+            version: 0.1.6-92ca3911de2
+
+          - os: macOS-latest
+            unimplemented: false
+            formula: gear@0.1.6
+            version: 0.1.6-92ca3911de2
+
+          - os: macOS-latest
+            unimplemented: false
+            formula: gear@0.1.5
+            version: 0.1.6-92ca3911de2
+
+          - os: macOS-latest
+            unimplemented: false
+            formula: gear@0.1.4
+            version: 0.1.6-92ca3911de2
+
+          - os: macOS-latest
+            unimplemented: false
+            formula: gear@0.1.3
+            version: 0.1.6-92ca3911de2
+
+          - os: macOS-latest
+            unimplemented: false
+            formula: gear@0.1.2
+            version: 0.1.6-92ca3911de2
+
+          - os: macOS-latest
+            unimplemented: false
+            formula: gear@0.1.1
+            version: 0.1.6-92ca3911de2
+
+          - os: macOS-latest
+            unimplemented: false
+            formula: vara
+            version: 0.1.6-92ca3911de2
+
+          - os: macOS-latest
+            unimplemented: false
+            formula: vara@1.1
+            version: 0.1.6-92ca3911de2
+
+          - os: macOS-latest
+            unimplemented: false
+            formula: vara@1.0
+            version: 0.1.6-92ca3911de2
 
     runs-on: ${{ matrix.os }}
     continue-on-error: ${{ matrix.unimplemented }} # TODO: Remove after adding support for Linux
@@ -48,24 +96,7 @@ jobs:
         if: true # github.event_name == 'push'
         run: brew tap gear-tech/gear
 
-      - name: Test Gear formulae
+      - name: Test formula
         run: |
-          brew install gear
-          gear --version && [ "$(gear --version)" = "gear 0.1.6-92ca3911de2" ]
-          brew rm gear
-          for GV in $GEAR_VERSIONS; do
-            brew install gear@$GV
-            gear --version
-            brew rm gear@$GV
-          done
-
-      - name: Test Vara formulae
-        run: |
-          brew install vara
-          gear --version && [ "$(gear --version)" = "gear 0.1.6-78dfa07ed34" ]
-          brew rm vara
-          for VV in $VARA_VERSIONS; do
-            brew install vara@$VV
-            gear --version
-            brew rm vara@$VV
-          done
+          brew install ${{ matrix.formula }}
+          gear --version && [ "$(gear --version)" = "gear ${{ matrix.version }}" ]
