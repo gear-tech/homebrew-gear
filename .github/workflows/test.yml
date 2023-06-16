@@ -34,6 +34,7 @@ jobs:
         run: |
           curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
           eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> $HOME/.bash_profile
           brew install hello
 
       # TODO: Find a solution to add a tap from a PR's branch
