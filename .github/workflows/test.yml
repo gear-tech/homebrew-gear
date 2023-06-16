@@ -10,7 +10,7 @@ on:
 
 env:
   GEAR_VERSIONS: 0.1.6 0.1.5 0.1.4 0.1.3 0.1.2 0.1.1
-  VARA_VERSIONS: 1.1 1.0 stable
+  VARA_VERSIONS: 1.1 1.0
 
 jobs:
   test:
