@@ -19,10 +19,17 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          # Gear Linux formulae
           - os: ubuntu-latest
             unimplemented: true # TODO: Remove after adding support for Linux
             formula: gear
 
+          # Vara Linux formulae
+          - os: ubuntu-latest
+            unimplemented: true # TODO: Remove after adding support for Linux
+            formula: vara
+
+          # Gear macOS formulae
           - os: macOS-latest
             unimplemented: false # TODO: Remove after adding support for Linux
             formula: gear
@@ -36,42 +43,43 @@ jobs:
           - os: macOS-latest
             unimplemented: false
             formula: gear@0.1.5
-            version: 0.1.6-92ca3911de2
+            version: 0.1.4-696abd96d43
 
           - os: macOS-latest
             unimplemented: false
             formula: gear@0.1.4
-            version: 0.1.6-92ca3911de2
+            version: 0.1.4-26eb1b4f84d
 
           - os: macOS-latest
             unimplemented: false
             formula: gear@0.1.3
-            version: 0.1.6-92ca3911de2
+            version: 0.1.3-e42c79acee5
 
           - os: macOS-latest
             unimplemented: false
             formula: gear@0.1.2
-            version: 0.1.6-92ca3911de2
+            version: 0.1.2-ea26723f253
 
           - os: macOS-latest
             unimplemented: false
             formula: gear@0.1.1
-            version: 0.1.6-92ca3911de2
+            version: 0.1.1-7e596de7ab4
 
+          # Vara macOS formulae
           - os: macOS-latest
             unimplemented: false
             formula: vara
-            version: 0.1.6-92ca3911de2
+            version: 0.1.6-78dfa07ed34
 
           - os: macOS-latest
             unimplemented: false
             formula: vara@1.1
-            version: 0.1.6-92ca3911de2
+            version: 0.1.6-78dfa07ed34
 
           - os: macOS-latest
             unimplemented: false
             formula: vara@1.0
-            version: 0.1.6-92ca3911de2
+            version: 0.1.4-5c685d0f15c
 
     runs-on: ${{ matrix.os }}
     continue-on-error: ${{ matrix.unimplemented }} # TODO: Remove after adding support for Linux
