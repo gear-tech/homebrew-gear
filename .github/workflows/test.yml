@@ -1,7 +1,7 @@
 name: Test
 
 on:
-  pull_request: # TODO: Remove after debugging
+  pull_request:
     branches: [master]
   push:
     branches: [master]
@@ -46,8 +46,7 @@ jobs:
 
       - name: Add Gear tap from master
         if: true # github.event_name == 'push'
-        run: |
-          brew tap gear-tech/gear
+        run: brew tap gear-tech/gear
 
       - name: Test Gear formulae
         run: |
