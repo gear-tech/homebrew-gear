@@ -33,7 +33,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
-          eval "$($HOME/.linuxbrew/bin/brew shellenv)"
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
           brew install hello
 
       # TODO: Find a solution to add a tap from a PR's branch
