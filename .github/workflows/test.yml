@@ -71,3 +71,4 @@ jobs:
       - name: Test formula
         run: |
           brew install ${{ matrix.formula }}
+          gear --version
