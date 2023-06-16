@@ -28,14 +28,16 @@ jobs:
       - name: Install brew on Linux
         if: matrix.os == 'ubuntu-latest'
         run: |
-          sudo apt-get install -y build-essential procps curl file git
+          sudo apt-get install -y build-essential
+          curl -fsSL -o install.sh https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
 
+      # TODO: Find a solution to add a tap from a PR's branch
       - name: Add Gear tap from PR's branch
-        if: github.event_name == 'pull_request'
-        run: brew tap https://github.com/gear-tech/homebrew-gear
+        if: false # github.event_name == 'pull_request'
+        run: brew tap https://github.com/gear-tech/homebrew-gear/tree/${{ github.ref_name }}
 
       - name: Add Gear tap from master
-        if: github.event_name == 'push'
+        if: true # github.event_name == 'push'
         run: brew tap gear-tech/gear
 
       - name: Test Gear formulae
