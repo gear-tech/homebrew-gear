@@ -7,7 +7,7 @@ brew tap gear-tech/gear
 brew install gear
 
 # If you want to install a specified version
-brew install gear@0.1.6
+brew install gear@0.2.0
 
 # For vara
 brew install vara
@@ -20,15 +20,17 @@ brew install vara@1.1
 
 Supported versions
 
-| gear         | vara        |
-| ------------ | ----------- |
-| gear@nightly | vara@stable |
-| gear@0.1.6   | vara@1.1    |
-| gear@0.1.5   | vara@1.0    |
-| gear@0.1.4   |             |
-| gear@0.1.3   |             |
-| gear@0.1.2   |             |
-| gear@0.1.1   |             |
+|          gear          |          vara          |
+| ---------------------- | ---------------------- |
+| `gear` (latest stable) | `vara` (latest stable) |
+| `gear@nightly`         | `vara@1.1`             |
+| `gear@0.2.0`           | `vara@1.0`             |
+| `gear@0.1.6`           |                        |
+| `gear@0.1.5`           |                        |
+| `gear@0.1.4`           |                        |
+| `gear@0.1.3`           |                        |
+| `gear@0.1.2`           |                        |
+| `gear@0.1.1`           |                        |
 
 ## Commands
 

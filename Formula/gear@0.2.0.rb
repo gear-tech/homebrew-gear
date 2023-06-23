@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-class Gear < Formula
+class GearAT020 < Formula
   desc "Computational Component of Polkadot Network"
   homepage "https://github.com/gear-tech/gear"
   license "GPL-3.0-or-later"
