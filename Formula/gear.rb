@@ -4,7 +4,7 @@ class Gear < Formula
   desc "Computational Component of Polkadot Network"
   homepage "https://github.com/gear-tech/gear"
   license "GPL-3.0-or-later"
-  version "0.2.1"
+  version "0.3.2"
 
   livecheck do
     url "https://get.gear.rs"
@@ -13,13 +13,13 @@ class Gear < Formula
 
   stable do
     on_arm do
-      url "https://get.gear.rs/gear-v0.2.1-aarch64-apple-darwin.tar.xz"
-      sha256 "f0ad57365da3ecc483cc42fc3592afdcbcf9aac3ec0ffef36aa3878b75f6b3a0"
+      url "https://get.gear.rs/gear-v0.3.2-aarch64-apple-darwin.tar.xz"
+      sha256 "bfbd45b3e5f5577f873c8da36e2a2b67a7b7f835c652736594869344749b0e65"
     end
 
     on_intel do
-      url "https://get.gear.rs/gear-v0.2.1-x86_64-apple-darwin.tar.xz"
-      sha256 "2c865a571dc4dfafa72af1b8554ec9f8603995be50eedf621a2d8002eff57042"
+      url "https://get.gear.rs/gear-v0.3.2-x86_64-apple-darwin.tar.xz"
+      sha256 "f6627e54bfa0263f225d7947cf23e0d86dba4138016e9dd19c1c1e02bcd98132"
     end
   end
 
