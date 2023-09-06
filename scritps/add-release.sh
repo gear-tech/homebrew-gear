@@ -21,47 +21,14 @@ script_usage() {
 EOF
 }
 
-if [ "$#" -ne  "2" ]
-then
-    echo 'Error: Please provide <FORMULA> and <VERSION>'
-    script_usage
-    exit 1
-fi
+write_formula_file() {
+  FILE_NAME=$1
+  CLASS=$2
 
-if [[ "$FORMULA" != "gear" ]] && [[ "$FORMULA" != "vara" ]]; then
-    echo 'Error: <FORMULA> should be "gear" or "vara"'
-    script_usage
-    exit 1
-fi
-
-echo "$VERSION" | grep -Eq "^[0-9]+\.[0-9]+(\.[0-9]+)?$"
-
-if [ $? -ne 0 ]; then
-    echo '<VERSION> format is not correct'
-    script_usage
-    exit 1
-fi
-
-set -e
-
-SHORT_VERSION=$(echo $VERSION | sed s/\\.//g)
-FILE_NAME=$FORMULA@$VERSION.rb
-FORMULA_PREFIX="$(tr '[:lower:]' '[:upper:]' <<< ${FORMULA:0:1})${FORMULA:1}"
-
-if [[ "$FORMULA" == "vara" ]]; then
-   INFIX="testnet-"
-fi
-
-LINK_MAC_ARM="https://get.gear.rs/$FORMULA-${INFIX}v$VERSION-aarch64-apple-darwin.tar.xz"
-LINK_MAC_X86="https://get.gear.rs/$FORMULA-${INFIX}v$VERSION-x86_64-apple-darwin.tar.xz"
-
-SHA_MAC_ARM=$(curl $LINK_MAC_ARM | shasum -a 256 | head -c 64)
-SHA_MAC_X86=$(curl $LINK_MAC_X86 | shasum -a 256 | head -c 64)
-
-cat <<EOF > $FILE_NAME
+  cat <<EOF > $FILE_NAME
 #!/usr/bin/env ruby
 
-class ${FORMULA_PREFIX}AT$SHORT_VERSION < Formula
+class $CLASS < Formula
   desc "Computational Component of Polkadot Network"
   homepage "https://github.com/gear-tech/gear"
   license "GPL-3.0-or-later"
@@ -99,3 +66,43 @@ class ${FORMULA_PREFIX}AT$SHORT_VERSION < Formula
   end
 end
 EOF
+}
+
+if [ "$#" -ne  "2" ]
+then
+    echo 'Error: Please provide <FORMULA> and <VERSION>'
+    script_usage
+    exit 1
+fi
+
+if [[ "$FORMULA" != "gear" ]] && [[ "$FORMULA" != "vara" ]]; then
+    echo 'Error: <FORMULA> should be "gear" or "vara"'
+    script_usage
+    exit 1
+fi
+
+echo "$VERSION" | grep -Eq "^[0-9]+\.[0-9]+(\.[0-9]+)?$"
+
+if [ $? -ne 0 ]; then
+    echo '<VERSION> format is not correct'
+    script_usage
+    exit 1
+fi
+
+set -e
+
+SHORT_VERSION=$(echo $VERSION | sed s/\\.//g)
+FORMULA_PREFIX="$(tr '[:lower:]' '[:upper:]' <<< ${FORMULA:0:1})${FORMULA:1}"
+
+if [[ "$FORMULA" == "vara" ]]; then
+   INFIX="testnet-"
+fi
+
+LINK_MAC_ARM="https://get.gear.rs/$FORMULA-${INFIX}v$VERSION-aarch64-apple-darwin.tar.xz"
+LINK_MAC_X86="https://get.gear.rs/$FORMULA-${INFIX}v$VERSION-x86_64-apple-darwin.tar.xz"
+
+SHA_MAC_ARM=$(curl $LINK_MAC_ARM | shasum -a 256 | head -c 64)
+SHA_MAC_X86=$(curl $LINK_MAC_X86 | shasum -a 256 | head -c 64)
+
+write_formula_file "$FORMULA@$VERSION.rb" "${FORMULA_PREFIX}AT$SHORT_VERSION"
+write_formula_file "$FORMULA.rb" "$FORMULA_PREFIX"
