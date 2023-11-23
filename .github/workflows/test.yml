@@ -18,6 +18,9 @@ jobs:
             formula: gear
 
           - os: macOS-latest
+            formula: gear@1.0.1
+
+          - os: macOS-latest
             formula: gear@1.0.0
 
           - os: macOS-latest

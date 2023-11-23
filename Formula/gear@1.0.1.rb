@@ -14,12 +14,12 @@ class GearAT101 < Formula
   stable do
     on_arm do
       url "https://get.gear.rs/gear-v1.0.1-aarch64-apple-darwin.tar.xz"
-      sha256 "3b4cb1559b49bd365217d6fb48a19aa533e4919ba51062ead3afa4bd3b9b4971"
+      sha256 "93c8540d23587092d30561001aa2d3fadcb44de348c5fc1d99a7f59d6b8974dc"
     end
 
     on_intel do
       url "https://get.gear.rs/gear-v1.0.1-x86_64-apple-darwin.tar.xz"
-      sha256 "a7133a68b929a2a3493525d8637d4005c844bb3bbfacb12211f848c5dda6b1c6"
+      sha256 "3479e4e1edbb80cde5f353c398033b344caee2fc2dc5837de4512cee99175a7a"
     end
   end
 
