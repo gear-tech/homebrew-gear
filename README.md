@@ -24,8 +24,10 @@ Supported versions
 | ---------------------- | ---------------------- |
 | `gear` (latest stable) | `vara` (latest stable) |
 | `gear@nightly`         | `vara@1.2`             |
-| `gear@1.0.2`           | `vara@1.1`             |
-| `gear@1.0.1`           | `vara@1.0`             |
+| `gear@1.0.4`           | `vara@1.1`             |
+| `gear@1.0.3`           | `vara@1.0`             |
+| `gear@1.0.2`           |                        |
+| `gear@1.0.1`           |                        |
 | `gear@1.0.0`           |                        |
 | `gear@0.3.3`           |                        |
 | `gear@0.3.2`           |                        |
