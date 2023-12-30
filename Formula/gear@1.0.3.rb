@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 
-class Gear < Formula
+class GearAT103 < Formula
   desc "Computational Component of Polkadot Network"
   homepage "https://github.com/gear-tech/gear"
   license "GPL-3.0-or-later"
-  version "1.0.4"
+  version "1.0.3"
 
   livecheck do
     url "https://get.gear.rs"
@@ -13,13 +13,13 @@ class Gear < Formula
 
   stable do
     on_arm do
-      url "https://get.gear.rs/gear-v1.0.4-aarch64-apple-darwin.tar.xz"
-      sha256 "f6ccd858871a36c1e1251cec109fb0544d51658124d1eb03eb6e2961c7fb8a8f"
+      url "https://get.gear.rs/gear-v1.0.3-aarch64-apple-darwin.tar.xz"
+      sha256 "cde420dd0f2318b6028222d9cf8fc841925ed2007000c8863fb436256bb87092"
     end
 
     on_intel do
-      url "https://get.gear.rs/gear-v1.0.4-x86_64-apple-darwin.tar.xz"
-      sha256 "f1b9cc1055f041bf874cf5433c98311d5f9cfddad97839088a7bebee5b175e86"
+      url "https://get.gear.rs/gear-v1.0.3-x86_64-apple-darwin.tar.xz"
+      sha256 "d60e23fd2aea4e02449739e6d43032b6ef63913d23f2439ccee67b100451c453"
     end
   end
 
