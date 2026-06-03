@@ -2,9 +2,10 @@ name: Test
 
 on:
   pull_request:
-    branches: [master]
+    branches: [ master ]
   push:
-    branches: [master]
+    branches: [ master ]
+  workflow_dispatch:
 
 jobs:
   test:
@@ -14,51 +15,34 @@ jobs:
       matrix:
         include:
           # Gear macOS formulae
-          - os: macOS-latest
+          - os: macos-latest
+            type: gear
             formula: gear
 
-          - os: macOS-latest
-            formula: gear@1.0.1
+          - os: macos-latest
+            type: gear
+            formula: gear@2.0.0
 
-          - os: macOS-latest
-            formula: gear@1.0.0
+          - os: macos-latest
+            type: gear
+            formula: gear@1.10.0
 
-          - os: macOS-latest
-            formula: gear@0.3.3
+          # Ethexe macOS formulae
+          - os: macos-latest
+            type: ethexe
+            formula: ethexe
 
-          - os: macOS-latest
-            formula: gear@0.2.1
+          - os: macos-latest
+            type: ethexe
+            formula: ethexe@2.0.0
 
-          - os: macOS-latest
-            formula: gear@0.1.6
-
-          # Vara macOS formulae
-          - os: macOS-latest
-            formula: vara
-
-          - os: macOS-latest
-            formula: vara@1.2
-
-          - os: macOS-latest
-            formula: vara@1.1
-
-          - os: macOS-latest
-            formula: vara@1.0
+          - os: macos-latest
+            type: ethexe
+            formula: ethexe@1.10.0
 
     runs-on: ${{ matrix.os }}
 
     steps:
-      # Not used but let's keep it for now
-      - name: Install brew on Linux
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
-          echo "/home/linuxbrew/.linuxbrew/bin" >> $GITHUB_PATH
-          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-          (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> $HOME/.bash_profile
-          (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> $HOME/.profile
-          brew install hello
-
       # TODO: Find a solution to test the tap from a PR's branch (#6)
       - name: Add Gear tap from PR's branch
         if: false # github.event_name == 'pull_request' # TODO: Uncomment after #6
@@ -71,4 +55,4 @@ jobs:
       - name: Test formula
         run: |
           brew install ${{ matrix.formula }}
-          gear --version
+          ${{ matrix.type }} --version
