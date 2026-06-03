@@ -16,52 +16,54 @@ jobs:
         include:
           # Gear macOS formulae
           - os: macos-latest
-            type: gear
+            cmd: gear
             formula: gear
 
           - os: macos-latest
-            type: gear
+            cmd: gear
             formula: gear@nightly
 
           - os: macos-latest
-            type: gear
+            cmd: gear
             formula: gear@2.0.0
 
           - os: macos-latest
-            type: gear
+            cmd: gear
             formula: gear@1.10.0
 
           # Ethexe macOS formulae
           - os: macos-latest
-            type: ethexe
+            cmd: ethexe
             formula: ethexe
 
           - os: macos-latest
-            type: ethexe
+            cmd: ethexe
             formula: ethexe@nightly
 
           - os: macos-latest
-            type: ethexe
+            cmd: ethexe
             formula: ethexe@2.0.0
 
           # disabled due to `--version` not working for ethexe@1.10.0
           # - os: macos-latest
-          #   type: ethexe
+          #   cmd: ethexe
           #   formula: ethexe@1.10.0
 
     runs-on: ${{ matrix.os }}
 
     steps:
-      # TODO: Find a solution to test the tap from a PR's branch (#6)
+      - name: Checkout code
+        uses: actions/checkout@v6
+
       - name: Add Gear tap from PR's branch
-        if: false # github.event_name == 'pull_request' # TODO: Uncomment after #6
-        run: brew tap https://github.com/gear-tech/homebrew-gear/tree/${{ github.ref_name }}
+        if: github.event_name == 'pull_request'
+        run: brew tap ${{ github.repository }} $GITHUB_WORKSPACE
 
       - name: Add Gear tap from master
-        if: true # github.event_name == 'push' # TODO: Uncomment after #6
-        run: brew tap gear-tech/gear
+        if: github.event_name == 'push'
+        run: brew tap ${{ github.repository }}
 
       - name: Test formula
         run: |
           brew install ${{ matrix.formula }}
-          ${{ matrix.type }} --version
+          ${{ matrix.cmd }} --version
