@@ -12,12 +12,12 @@ script_usage() {
     ./add-release.sh <FORMULA> <VERSION>
 
   Options:
-    <FORMULA>      "gear" or "vara"
+    <FORMULA>      "gear" or "ethexe"
     <VERSION>      version available on https://get.gear.rs
 
   Example:
-    ./add-release.sh gear 0.3.2
-    ./add-release.sh vara 1.1
+    ./add-release.sh gear 2.0.0
+    ./add-release.sh ethexe 2.0.0
 EOF
 }
 
@@ -29,7 +29,7 @@ write_formula_file() {
 #!/usr/bin/env ruby
 
 class $CLASS < Formula
-  desc "Computational Component of Polkadot Network"
+  desc "Web3 Ultimate Execution Engine"
   homepage "https://github.com/gear-tech/gear"
   license "GPL-3.0-or-later"
   version "$VERSION"
@@ -40,27 +40,41 @@ class $CLASS < Formula
   end
 
   stable do
-    on_arm do
-      url "$LINK_MAC_ARM"
-      sha256 "$SHA_MAC_ARM"
+    on_macos do
+      on_arm do
+        url "$LINK_MAC_ARM"
+        sha256 "$SHA_MAC_ARM"
+      end
+
+      on_intel do
+        url "$LINK_MAC_X86"
+        sha256 "$SHA_MAC_X86"
+      end
     end
 
-    on_intel do
-      url "$LINK_MAC_X86"
-      sha256 "$SHA_MAC_X86"
+    on_linux do
+      on_arm do
+        url "$LINK_LINUX_ARM"
+        sha256 "$SHA_LINUX_ARM"
+      end
+
+      on_intel do
+        url "$LINK_LINUX_X86"
+        sha256 "$SHA_LINUX_X86"
+      end
     end
   end
 
   def install
     libexec.install Dir["*"]
-    bin.install_symlink Dir["#{libexec}/gear"]
+    bin.install_symlink Dir["#{libexec}/$FORMULA"]
   end
 
   def caveats; <<~EOS
 
-    Installed gear successfully!
+    Installed $FORMULA successfully!
 
-    run \`gear --help\` to see available commands.
+    run \`$FORMULA --help\` to see available commands.
 
     EOS
   end
@@ -75,8 +89,8 @@ then
     exit 1
 fi
 
-if [[ "$FORMULA" != "gear" ]] && [[ "$FORMULA" != "vara" ]]; then
-    echo 'Error: <FORMULA> should be "gear" or "vara"'
+if [[ "$FORMULA" != "gear" ]] && [[ "$FORMULA" != "ethexe" ]]; then
+    echo 'Error: <FORMULA> should be "gear" or "ethexe"'
     script_usage
     exit 1
 fi
@@ -94,15 +108,17 @@ set -e
 SHORT_VERSION=$(echo $VERSION | sed s/\\.//g)
 FORMULA_PREFIX="$(tr '[:lower:]' '[:upper:]' <<< ${FORMULA:0:1})${FORMULA:1}"
 
-if [[ "$FORMULA" == "vara" ]]; then
-   INFIX="testnet-"
-fi
-
-LINK_MAC_ARM="https://get.gear.rs/$FORMULA-${INFIX}v$VERSION-aarch64-apple-darwin.tar.xz"
-LINK_MAC_X86="https://get.gear.rs/$FORMULA-${INFIX}v$VERSION-x86_64-apple-darwin.tar.xz"
+LINK_MAC_ARM="https://get.gear.rs/$FORMULA-v$VERSION-aarch64-apple-darwin.tar.xz"
+LINK_MAC_X86="https://get.gear.rs/$FORMULA-v$VERSION-x86_64-apple-darwin.tar.xz"
 
 SHA_MAC_ARM=$(curl $LINK_MAC_ARM | shasum -a 256 | head -c 64)
 SHA_MAC_X86=$(curl $LINK_MAC_X86 | shasum -a 256 | head -c 64)
+
+LINK_LINUX_ARM="https://get.gear.rs/$FORMULA-v$VERSION-aarch64-unknown-linux-gnu.tar.xz"
+LINK_LINUX_X86="https://get.gear.rs/$FORMULA-v$VERSION-x86_64-unknown-linux-gnu.tar.xz"
+
+SHA_LINUX_ARM=$(curl $LINK_LINUX_ARM | shasum -a 256 | head -c 64)
+SHA_LINUX_X86=$(curl $LINK_LINUX_X86 | shasum -a 256 | head -c 64)
 
 write_formula_file "$FORMULA@$VERSION.rb" "${FORMULA_PREFIX}AT$SHORT_VERSION"
 write_formula_file "$FORMULA.rb" "$FORMULA_PREFIX"

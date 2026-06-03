@@ -4,10 +4,10 @@ class Getgear < Formula
   desc "getgear is the installer for gear binaries."
   homepage "https://github.com/gear-tech/gear"
   license "GPL-3.0-or-later"
-  version "0.1.0"
+  version "2.0.0"
 
   url "https://get.gear.rs/install.sh"
-  sha256 "439b07572b319acd49a1f08ce821f71b7f32cca7e9187bc480d571cd70187687"
+  sha256 "01fb3a0c070e5ad942ff68f10a80475a4985ec2b9963fca59382afdbcc9e4fee"
 
   def install
     bin.install "install.sh" => "getgear"

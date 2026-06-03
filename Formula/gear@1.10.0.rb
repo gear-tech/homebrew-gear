@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-class Gear < Formula
+class GearAT1100 < Formula
   desc "Web3 Ultimate Execution Engine"
   homepage "https://github.com/gear-tech/gear"
   license "GPL-3.0-or-later"
