@@ -21,6 +21,10 @@ jobs:
 
           - os: macos-latest
             type: gear
+            formula: gear@nightly
+
+          - os: macos-latest
+            type: gear
             formula: gear@2.0.0
 
           - os: macos-latest
@@ -34,11 +38,16 @@ jobs:
 
           - os: macos-latest
             type: ethexe
-            formula: ethexe@2.0.0
+            formula: ethexe@nightly
 
           - os: macos-latest
             type: ethexe
-            formula: ethexe@1.10.0
+            formula: ethexe@2.0.0
+
+          # disabled due to `--version` not working for ethexe@1.10.0
+          # - os: macos-latest
+          #   type: ethexe
+          #   formula: ethexe@1.10.0
 
     runs-on: ${{ matrix.os }}
 

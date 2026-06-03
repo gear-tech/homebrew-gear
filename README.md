@@ -25,6 +25,7 @@ Supported versions
 |          gear          |          ethexe          |
 | ---------------------- | ------------------------ |
 | `gear` (latest stable) | `ethexe` (latest stable) |
+| `gear@nightly`         | `ethexe@nightly`         |
 | `gear@2.0.0`           | `ethexe@2.0.0`           |
 | `gear@1.10.0`          | `ethexe@1.10.0`          |
 
